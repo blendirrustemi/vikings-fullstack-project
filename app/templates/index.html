@@ -8,6 +8,15 @@
 </head>
 <body>
     <h1>Vikings Characters</h1>
+    <!-- Search and Has Photo Filter -->
+    <form method="GET" action="{{ url_for('views.index') }}">
+        <input type="text" name="search" placeholder="Search characters..." value="{{ request.args.get('search', '') }}">
+        
+        <label for="has_photo">Has photo?</label>
+        <input type="checkbox" id="has_photo" name="has_photo" value="true" {% if request.args.get('has_photo') == 'true' %}checked{% endif %}>
+        <button type="submit">Search</button>
+        
+    </form>
     <table>
         <thead>
             <tr>
