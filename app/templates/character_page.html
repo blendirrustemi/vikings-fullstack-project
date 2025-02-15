@@ -4,11 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ character.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/character_page.css') }}">
 </head>
 <body>
-    <h1>{{ character.name }}</h1>
-    <p><strong>Actor:</strong> {{ character.actor }}</p>
-    <p><strong>Description:</strong> {{ character.description }}</p>
-    <img src="{{ character.photo_url }}" alt="{{ character.name }}">
+    <div class="container">
+        <h1>{{ character.name }}</h1>
+        <div class="character-details">
+            <img src="{{ character.photo_url }}" alt="{{ character.name }}">
+            <div class="character-info">
+                <h2>Played by: {{ character.actor }}</h2>
+                <div class="description-section">
+                    <h3>Description:</h3>
+                    <p>{{ character.description if character.description else "No description available." }}</p>
+                </div>
+                <a href="{{ url_for('views.index') }}" class="back-button">Back to All Characters</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
