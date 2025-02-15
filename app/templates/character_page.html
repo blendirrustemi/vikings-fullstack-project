@@ -1,25 +1,50 @@
+<!-- app/templates/character_page.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ character.name }}</title>
+    <title>{{ character.name }} - Vikings Character</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/character_page.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>{{ character.name }}</h1>
+        <h1>{{ character.name }} - Character Details</h1>
+
         <div class="character-details">
             <img src="{{ character.photo_url }}" alt="{{ character.name }}">
             <div class="character-info">
-                <h2>Played by: {{ character.actor }}</h2>
-                <div class="description-section">
-                    <h3>Description:</h3>
-                    <p>{{ character.description if character.description else "No description available." }}</p>
-                </div>
-                <a href="{{ url_for('views.index') }}" class="back-button">Back to All Characters</a>
+                <!-- Display character details or form depending on edit mode -->
+                <form method="POST" action="{{ url_for('views.update_character', id=character.id) }}">
+                    <div>
+                        <label for="name"><strong>Name:</strong></label>
+                        <input type="text" id="name" name="name" value="{{ character.name }}" required>
+                    </div>
+                    <div>
+                        <label for="actor"><strong>Actor:</strong></label>
+                        <input type="text" id="actor" name="actor" value="{{ character.actor }}" required>
+                    </div>
+                    <div>
+                        <label for="description"><strong>Description:</strong></label>
+                        <textarea id="description" name="description">{{ character.description }}</textarea>
+                    </div>
+                    <div>
+                        <label for="photo_url"><strong>Photo URL:</strong></label>
+                        <input type="text" id="photo_url" name="photo_url" value="{{ character.photo_url }}">
+                    </div>
+                    <div>
+                        <label for="character_url"><strong>Character URL:</strong></label>
+                        <input type="text" id="character_url" name="character_url" value="{{ character.character_url }}">
+                    </div>
+                    <div>
+                        <button type="submit">Update Character</button>
+                    </div>
+                </form>
             </div>
         </div>
+
+        <!-- Back Button -->
+        <a href="{{ url_for('views.index') }}" class="back-button">Back to Characters List</a>
     </div>
 </body>
 </html>
