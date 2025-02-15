@@ -1,0 +1,32 @@
+<!-- app/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vikings Characters</title>
+</head>
+<body>
+    <h1>Vikings Characters</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actor</th>
+                <th>Description</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for character in characters %}
+            <tr>
+                <td>{{ character.name }}</td>
+                <td>{{ character.actor }}</td>
+                <td>{{ character.description }}</td>
+                <td><img src="{{ character.photo_url }}" alt="{{ character.name }}"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
