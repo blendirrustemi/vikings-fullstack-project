@@ -39,8 +39,6 @@ def scrape_vikings_characters():
         except:
             print("Error occurred while scraping character names and profile pictures.")
 
-        print(f"Found {len(character_info)} characters.")
-
         # Step 4: Iterate through each name and visit the character's page
         try:
             for char in character_info:

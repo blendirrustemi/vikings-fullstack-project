@@ -1,5 +1,5 @@
 # app/models/character.py
-from app import db
+from app.db import db
 
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
