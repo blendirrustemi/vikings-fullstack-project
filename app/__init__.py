@@ -11,6 +11,10 @@ def create_app():
 
     db.init_app(app)
 
+    with app.app_context():
+        db.create_all()  # This will create the tables if they do not exist
+        db.session.commit()
+        
     """
     Scheduler that calls the store_characters function every 24 hours.
     """
