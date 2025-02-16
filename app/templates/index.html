@@ -28,6 +28,11 @@
         </thead>
         <tbody>
             {% for character in characters %}
+            {% if not characters %}
+            <tr>
+                <td colspan="4">Wait until we scrape again.</td>
+            </tr>
+            {% endif %}
             <tr>
                 <td><a href="{{ url_for('views.character_page', id=character.id) }}"><img src="{{ character.photo_url }}" alt="{{ character.name }}"></a></td>
                 <td><a href="{{ url_for('views.character_page', id=character.id) }}">{{ character.name }}</td>
