@@ -38,6 +38,7 @@ def scrape_vikings_characters():
                     character_info.append({'name': name, 'img_url': img_url})
         except:
             print("Error occurred while scraping character names and profile pictures.")
+            return []
 
         # Step 4: Iterate through each name and visit the character's page
         try:
@@ -77,6 +78,7 @@ def scrape_vikings_characters():
                     continue
         except:
             print("Error occurred while scraping character details.")
+            return []
 
         browser.close()
 
