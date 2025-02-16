@@ -4,6 +4,10 @@ from app.models.character import Character
 
 api_bp = Blueprint('api', __name__)
 
+"""
+API endpoint to get all characters
+"""
+
 @api_bp.route('/characters')
 def get_characters():
     characters = Character.query.all()

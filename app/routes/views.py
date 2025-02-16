@@ -9,20 +9,23 @@ views_bp = Blueprint('views', __name__)
 @views_bp.route('/')
 def index():
     try:
-        search_query = request.args.get('search', '').lower()  # Get the search query from URL args
-        has_photo = request.args.get('has_photo') == 'true'  # Check if "Has photo?" checkbox is checked
+        """
+        View for the homepage
+        Filters the characters based on the search query and has_photo.
+        """
+        search_query = request.args.get('search', '').lower()
+        has_photo = request.args.get('has_photo') == 'true'
         
+        # If the query is provided, it filters by checking on the character name and actor
         if search_query:
-            # If search_query is provided, filter by name or actor
             characters = Character.query.filter(
                 (Character.name.ilike(f'%{search_query}%')) |
                 (Character.actor.ilike(f'%{search_query}%'))
             )
         else:
-            # If no search query is provided, fetch all characters
             characters = Character.query
 
-        # If "Has photo?" filter is applied, filter by non-empty photo_url
+        # If has_photo is True it filters by checking if the photo_url is not None or empty
         if has_photo:
             characters = characters.filter(Character.photo_url != None).filter(Character.photo_url != '')
 
@@ -33,21 +36,18 @@ def index():
         print(e)
         return str(e)
     
+
+"""
+View for the individual character page
+"""
 @views_bp.route('/character/<int:id>')
 def character_page(id):
     character = Character.query.get(id)
     return render_template('character_page.html', character=character)
 
-
-@views_bp.route('/scrape_vikings', methods=['GET'])
-def scrape_vikings():
-    # Run the scraper to get the character data
-    
-    store_characters()
-
-    return "Scraping complete and data saved to database."
-
-
+"""
+Endpoint to edit the character details
+"""
 @views_bp.route('/character/<int:id>', methods=['POST'])
 def update_character(id):
     character = Character.query.get(id)
@@ -58,9 +58,8 @@ def update_character(id):
         character.photo_url = request.form['photo_url']
         character.character_url = request.form['character_url']
         
-        db.session.commit()  # Save changes to the database
+        db.session.commit()
         
-        # Redirect to the updated character page using the correct endpoint
-        return redirect(url_for('views.character_page', id=character.id))  # Make sure this is 'views.character_page'
+        return redirect(url_for('views.character_page', id=character.id))
     
     return "Character not found", 404
