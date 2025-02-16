@@ -24,3 +24,5 @@ Before running the project, make sure you have the following installed:
 - pip (Python package installer)
   
 You can install the dependencies using `pip`:
+```bash
+pip install -r requirements.txt
